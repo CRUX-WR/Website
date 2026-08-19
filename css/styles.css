@@ -693,6 +693,8 @@ footer.site-footer{
 .footer-bottom{
   display:flex;justify-content:space-between;align-items:center;padding-top:26px;font-size:12.5px;color:#6d7383;flex-wrap:wrap;gap:10px;
 }
+.footer-bottom a{color:inherit;}
+.footer-bottom a:hover{color:#fff;}
 @media (max-width:860px){.footer-top{grid-template-columns:1fr 1fr;}}
 @media (max-width:560px){.footer-top{grid-template-columns:1fr;}}
 
@@ -720,6 +722,16 @@ footer.site-footer{
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
 @media (max-width:720px){.grid-2{grid-template-columns:1fr;}}
 .center-copy{max-width:680px;margin:0 auto;text-align:center;}
+
+/* ---------- legal pages ---------- */
+.legal-content{max-width:760px;}
+.legal-content .updated{font-size:13px;color:var(--ink-faint);margin-bottom:36px;}
+.legal-content h2{font-size:21px;margin:40px 0 14px;}
+.legal-content h2:first-of-type{margin-top:0;}
+.legal-content p{margin-bottom:14px;font-size:15px;color:var(--ink-soft);line-height:1.7;}
+.legal-content ul{margin:0 0 14px;padding-left:22px;list-style:disc;}
+.legal-content li{font-size:15px;color:var(--ink-soft);line-height:1.7;margin-bottom:6px;}
+.legal-content strong{color:var(--ink);}
 .badge-soft{
   display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
   background:var(--amber-soft);color:var(--amber);border-radius:999px;padding:4px 10px;
