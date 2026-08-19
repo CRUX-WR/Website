@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact · Crux</title>
+<meta name="description" content="Book a diagnostic call with Crux, or read answers to the questions we get most about who we work with, pricing, and how AI fits into the process.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<noscript><style>.reveal{opacity:1!important;transform:none!important;}</style></noscript>
+</head>
+<body>
+
+<nav class="site-nav on-dark-page" id="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">CRUX<span class="dot">.</span></a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="approach.html">Approach</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-outline on-dark">Book a call</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Contact</span>
+    <h1>Let's see if you're a fit.</h1>
+    <p>A diagnostic call is 30 minutes. Tell us about your product, your data, and where growth feels stuck; we'll tell you honestly whether a Crux engagement would find anything worth acting on.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <div>
+        <h2 style="font-size:24px;margin-bottom:22px;">Tell us about your company</h2>
+        <form class="contact-form" id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none;"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your full name">
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" required placeholder="you@company.com">
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" required placeholder="Company name">
+          </div>
+          <div class="field">
+            <label for="track">Which best describes you?</label>
+            <select id="track" name="track">
+              <option>B2B SaaS, Series A+</option>
+              <option>B2C app or platform</option>
+              <option>D2C, $1M–$20M revenue</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">What's stuck?</label>
+            <textarea id="message" name="message" placeholder="A sentence or two on where growth feels capped, and what data you have access to."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="align-self:flex-start;margin-top:6px;">Send inquiry</button>
+          <p class="form-note">We read every message personally and reply within two business days.</p>
+        </form>
+        <div id="contact-form-success" style="display:none;text-align:center;padding:32px 0;">
+          <span class="eyebrow">Message sent</span>
+          <h3 style="margin-top:8px;margin-bottom:10px;">We'll be in touch.</h3>
+          <p style="color:var(--ink-soft);font-size:14.5px;margin-bottom:22px;">We read every message personally and reply within two business days.</p>
+          <button type="button" class="btn btn-outline" id="contact-form-again">Send another message</button>
+        </div>
+      </div>
+
+      <div class="contact-side">
+        <div class="side-card">
+          <h4>Book directly</h4>
+          <p style="margin-bottom:14px;">Prefer to skip the form? Request a slot and we'll confirm a time.</p>
+          <button type="button" id="open-booking-modal" class="btn btn-outline" style="width:100%;justify-content:center;">Open booking calendar</button>
+        </div>
+        <div class="side-card">
+          <h4>Email</h4>
+          <p>For anything that doesn't fit a form.</p>
+          <a href="mailto:support@wrcrux.com" class="email">support@wrcrux.com</a>
+        </div>
+        <div class="side-card">
+          <h4>Not sure you're a fit?</h4>
+          <p>Read who we work with on the <a href="index.html" style="color:var(--accent-glow);font-weight:600;">home page</a>, or check the FAQ below before booking.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="canvas" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">FAQ</span>
+        <h2>Questions we get on every call</h2>
+        <p class="section-lede">If your question isn't here, ask it directly: the form above goes straight to the founding team.</p>
+      </div>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item open">
+        <button class="faq-q">
+          <span>Who do you actually work with?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Three profiles: B2B SaaS companies at Series A or later, B2C apps and platforms with real usage data, and D2C brands in the $1M–$20M revenue range with an existing ops/data stack. If none of that describes you yet, we're probably not the right fit today.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>Why don't you work with pre-launch or early-stage startups?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Our diagnostic phase runs on real usage data: funnels, cohorts, support tickets, attribution. Below a certain traffic and revenue floor, that analysis isn't statistically meaningful, so the diagnosis, and everything built on it, gets shaky. We'd rather say no than sell a diagnostic with nothing to bite into.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>What's the actual process?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Four phases: Diagnose (find the real constraint), Prescribe (turn it into a sequenced, prioritized plan), Activate (ship the fixes alongside your team), Measure (attribute the result and feed it back into the next cycle). Full detail on the <a href="approach.html" style="color:var(--accent-glow);font-weight:600;">Approach</a> page.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>How is this different from a typical marketing or growth agency?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Most agencies sell one channel (paid, CRO, content, or brand) and leave you to stitch the rest together. We diagnose and fix the whole system, we build hard revenue attribution into the engagement instead of avoiding it, and we use AI natively rather than bolting it onto old workflows.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>How does AI actually factor into the work?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">AI handles synthesis, scoring, and first drafts: clustering feedback, ranking fixes, drafting copy and prototypes. It doesn't make the final call on positioning or prioritization, and every AI-generated insight is checked against source data before it ships. See <a href="approach.html" style="color:var(--accent-glow);font-weight:600;">AI in delivery</a> for the full breakdown.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>What does an engagement cost?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">It depends on scope and track. Most engagements start with a fixed-fee diagnostic sprint, then move into a retainer, a project-based build, or a hybrid partly tied to agreed outcomes like qualified pipeline or revenue lift. We'll walk through real numbers once we understand your situation.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>Do you replace our internal team, or work alongside them?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Alongside. We plug into your existing analytics, CRM, and PM tools and work with your team on execution; we're not a black box that disappears for six weeks and reappears with a deck.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>How long until we see results?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">The diagnostic sprint itself is time-boxed and fast. How long results take after that depends on what the diagnosis finds: some fixes, like a positioning change or a lifecycle flow, show up in weeks; others, like a roadmap change or a sales-motion shift, take a full quarter to read cleanly. We'll give a specific estimate once we know the constraint.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>Can we see case studies before committing?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">We're newly launched and running our first pilot cohort now; see the <a href="case-studies.html" style="color:var(--accent-glow);font-weight:600;">Case Studies</a> page for exactly where that stands. We'd rather be upfront about being early than fabricate a client roster.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>What if the diagnostic finds nothing worth fixing?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Then we tell you that, and you walk away with the diagnostic memo and no further obligation. It's rare given our intake criteria, but it happens; we're not going to invent an engagement to justify the fee.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="brand">CRUX<span class="dot">.</span></div>
+        <p>Product and marketing enhancement for companies that have outgrown guesswork. Diagnose, prescribe, activate, measure.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Site</h5>
+        <a href="index.html">Home</a>
+        <a href="approach.html">Approach</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h5>Get started</h5>
+        <a href="contact.html">Book a call</a>
+        <a href="contact.html#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a href="mailto:support@wrcrux.com">support@wrcrux.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> Crux · Product &amp; Growth Studio</span>
+      <span>Built for companies past guesswork.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="booking-modal-overlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title">
+    <button type="button" class="modal-close" id="booking-modal-close" aria-label="Close">&times;</button>
+
+    <div id="booking-modal-body">
+      <span class="eyebrow">Book directly</span>
+      <h3 id="booking-modal-title" style="margin-top:8px;margin-bottom:8px;">Request a call slot</h3>
+      <p class="modal-lede">Share your details and a couple of times that work, and we'll confirm one by email within a business day.</p>
+
+      <form class="contact-form" id="booking-form" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="booking">
+        <p style="display:none;"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+        <div class="field">
+          <label for="booking-name">Name</label>
+          <input type="text" id="booking-name" name="name" required placeholder="Your full name">
+        </div>
+        <div class="field">
+          <label for="booking-email">Work email</label>
+          <input type="email" id="booking-email" name="email" required placeholder="you@company.com">
+        </div>
+        <div class="field">
+          <label for="booking-company">Company</label>
+          <input type="text" id="booking-company" name="company" required placeholder="Company name">
+        </div>
+        <div class="field" style="flex-direction:row;gap:16px;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+            <label for="booking-date">Preferred date</label>
+            <input type="date" id="booking-date" name="date" required>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+            <label for="booking-time">Preferred time</label>
+            <input type="time" id="booking-time" name="time" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="booking-notes">Anything we should know?</label>
+          <textarea id="booking-notes" name="notes" placeholder="Optional: timezone, alternate times, or context for the call."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;margin-top:6px;">Request this slot</button>
+        <p class="form-note">We read every request personally and confirm a time within a business day.</p>
+      </form>
+    </div>
+
+    <div id="booking-modal-success" style="display:none;text-align:center;padding:8px 0;">
+      <span class="eyebrow">Request sent</span>
+      <h3 style="margin-top:8px;margin-bottom:10px;">We'll be in touch.</h3>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-bottom:22px;">We've received your request and will confirm a slot by email within a business day.</p>
+      <button type="button" class="btn btn-outline" id="booking-modal-done">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
