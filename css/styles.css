@@ -479,6 +479,7 @@ section.ink{background:var(--void);color:#fff;}
   gap:28px;
   padding:36px 0;
   border-top:1px solid var(--line);
+  transition:opacity .45s ease, transform .45s ease;
 }
 .process-row:last-child{border-bottom:1px solid var(--line);}
 .process-num{
@@ -486,6 +487,18 @@ section.ink{background:var(--void);color:#fff;}
   font-size:30px;
   color:var(--accent-line);
 }
+.process-visual{
+  width:100%;
+  height:130px;
+  border-radius:var(--radius);
+  background:radial-gradient(420px 200px at 20% 20%, rgba(91,139,240,0.16), transparent 60%), var(--canvas-deep);
+  border:1px solid var(--accent-line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:22px;
+}
+.process-visual svg{width:56px;height:56px;color:var(--accent-glow);}
 .process-row h3{font-size:23px;margin-bottom:10px;}
 .process-row .role-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
 .role-tag{
@@ -749,6 +762,14 @@ footer.site-footer{
 .reveal.in{opacity:1;transform:translateY(0) scale(1);}
 @media (prefers-reduced-motion: reduce){
   .reveal{opacity:1!important;transform:none!important;transition:none!important;}
+}
+
+/* Comes after .reveal.in in source order so it wins the equal-specificity
+   cascade tie and overrides the entrance animation's resting transform. */
+.process-row.is-focus{opacity:1;transform:scale(1.015);}
+.process-row.is-dim{opacity:.45;transform:scale(.95);}
+@media (prefers-reduced-motion: reduce){
+  .process-row.is-focus,.process-row.is-dim{opacity:1;transform:none;}
 }
 
 /* ---------- misc ---------- */

@@ -66,12 +66,17 @@
             <input type="email" id="email" name="email" required placeholder="you@company.com">
           </div>
           <div class="field">
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" required placeholder="+1 234 567 8900">
+          </div>
+          <div class="field">
             <label for="company">Company</label>
             <input type="text" id="company" name="company" required placeholder="Company name">
           </div>
           <div class="field">
             <label for="track">Which best describes you?</label>
-            <select id="track" name="track">
+            <select id="track" name="track" required>
+              <option value="" disabled selected>Select one</option>
               <option>B2B SaaS, Series A+</option>
               <option>B2C app or platform</option>
               <option>D2C, $1M–$20M revenue</option>
@@ -80,7 +85,7 @@
           </div>
           <div class="field">
             <label for="message">What's stuck?</label>
-            <textarea id="message" name="message" placeholder="A sentence or two on where growth feels capped, and what data you have access to."></textarea>
+            <textarea id="message" name="message" required placeholder="A sentence or two on where growth feels capped, and what data you have access to."></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="align-self:flex-start;margin-top:6px;">Send inquiry</button>
           <p class="form-note">We read every message personally and reply within two business days.</p>

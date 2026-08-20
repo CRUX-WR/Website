@@ -126,6 +126,28 @@ document.addEventListener('DOMContentLoaded', function () {
     countEls.forEach(function (el) { countIo.observe(el); });
   }
 
+  // Scroll-focus for the phase timeline (process-row): the row nearest the
+  // vertical center of the viewport is emphasized; the rest recede.
+  var processRows = document.querySelectorAll('.process-row');
+  if ('IntersectionObserver' in window && processRows.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    processRows.forEach(function (row) { row.classList.add('is-dim'); });
+    var focusIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        processRows.forEach(function (row) {
+          if (row === entry.target) {
+            row.classList.add('is-focus');
+            row.classList.remove('is-dim');
+          } else {
+            row.classList.remove('is-focus');
+            row.classList.add('is-dim');
+          }
+        });
+      });
+    }, { threshold: 0, rootMargin: '-42% 0px -42% 0px' });
+    processRows.forEach(function (row) { focusIo.observe(row); });
+  }
+
   // Contact form -> Netlify Forms submission
   var CONTACT_NOTE_DEFAULT = 'We read every message personally and reply within two business days.';
   var form = document.getElementById('contact-form');
@@ -137,11 +159,12 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       var name = form.querySelector('#name').value.trim();
       var email = form.querySelector('#email').value.trim();
+      var phone = form.querySelector('#phone').value.trim();
       var company = form.querySelector('#company').value.trim();
       var track = form.querySelector('#track').value;
       var message = form.querySelector('#message').value.trim();
 
-      logToSheet('contact', { name: name, email: email, company: company, track: track, message: message });
+      logToSheet('contact', { name: name, email: email, phone: phone, company: company, track: track, message: message });
 
       var submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) submitBtn.disabled = true;
