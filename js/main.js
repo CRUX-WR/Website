@@ -55,9 +55,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Bring a few more element types into the scroll-reveal system that
+  // previously just appeared flat with no motion.
+  document.querySelectorAll('.icp-card, .founder-block, .section-head').forEach(function (el) {
+    el.classList.add('reveal');
+  });
+
   // Scroll reveal
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && revealEls.length) {
+    // Stagger siblings that reveal together (e.g. cards in the same grid)
+    // so they animate in as a sequence instead of all at once. Elements
+    // that are the only .reveal in their parent get 0ms, so solo reveals
+    // (CTA bands, single blocks) are unaffected.
+    var revealGroups = [];
+    revealEls.forEach(function (el) {
+      var parent = el.parentElement;
+      var group = null;
+      for (var i = 0; i < revealGroups.length; i++) {
+        if (revealGroups[i].parent === parent) { group = revealGroups[i]; break; }
+      }
+      if (!group) { group = { parent: parent, count: 0 }; revealGroups.push(group); }
+      el.style.transitionDelay = Math.min(group.count * 80, 480) + 'ms';
+      group.count++;
+    });
+
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -69,6 +91,39 @@ document.addEventListener('DOMContentLoaded', function () {
     revealEls.forEach(function (el) { io.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // Count-up animation for stat numbers (e.g. case study metrics).
+  // Parses a leading/trailing prefix and suffix around the numeric part
+  // so values like "+40%", "6 mo", or "2×" animate correctly; anything
+  // without a plain number in it (e.g. a "—" placeholder) is left as-is.
+  var countEls = document.querySelectorAll('.m-num');
+  if ('IntersectionObserver' in window && countEls.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var countIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        countIo.unobserve(entry.target);
+        var el = entry.target;
+        var raw = el.textContent.trim();
+        var match = raw.match(/^([^\d]*)(\d+(?:\.\d+)?)(.*)$/);
+        if (!match) return;
+        var prefix = match[1], target = parseFloat(match[2]), suffix = match[3];
+        var isInt = target === Math.round(target);
+        var duration = 900;
+        var start = null;
+        function step(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          var current = target * eased;
+          el.textContent = prefix + (isInt ? Math.round(current) : (Math.round(current * 10) / 10)) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = raw;
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.4 });
+    countEls.forEach(function (el) { countIo.observe(el); });
   }
 
   // Contact form -> Netlify Forms submission
