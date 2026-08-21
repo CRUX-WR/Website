@@ -649,6 +649,7 @@ section.ink{background:var(--void);color:#fff;}
   font-family:var(--serif);
   font-size:56px;
   color:#fff;
+  object-fit:cover;
 }
 @media (max-width:640px){.founder-block{grid-template-columns:1fr;}.founder-avatar{width:96px;height:96px;font-size:32px;}}
 
