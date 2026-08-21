@@ -101,8 +101,8 @@
       <div class="contact-side">
         <div class="side-card">
           <h4>Book directly</h4>
-          <p style="margin-bottom:14px;">Prefer to skip the form? Request a slot and we'll confirm a time.</p>
-          <button type="button" id="open-booking-modal" class="btn btn-outline" style="width:100%;justify-content:center;">Open booking calendar</button>
+          <p style="margin-bottom:14px;">Prefer to skip the form? Pick a time on our live calendar.</p>
+          <a href="https://calendar.app.google/eKEHUN7tRRTAvf9bA" target="_blank" rel="noopener" class="btn btn-outline" style="width:100%;justify-content:center;">Open booking calendar</a>
         </div>
         <div class="side-card">
           <h4>Email</h4>
@@ -247,58 +247,6 @@
     </div>
   </div>
 </footer>
-
-<div class="modal-overlay" id="booking-modal-overlay">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title">
-    <button type="button" class="modal-close" id="booking-modal-close" aria-label="Close">&times;</button>
-
-    <div id="booking-modal-body">
-      <span class="eyebrow">Book directly</span>
-      <h3 id="booking-modal-title" style="margin-top:8px;margin-bottom:8px;">Request a call slot</h3>
-      <p class="modal-lede">Share your details and a couple of times that work, and we'll confirm one by email within a business day.</p>
-
-      <form class="contact-form" id="booking-form" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="booking">
-        <p style="display:none;"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
-        <div class="field">
-          <label for="booking-name">Name</label>
-          <input type="text" id="booking-name" name="name" required placeholder="Your full name">
-        </div>
-        <div class="field">
-          <label for="booking-email">Work email</label>
-          <input type="email" id="booking-email" name="email" required placeholder="you@company.com">
-        </div>
-        <div class="field">
-          <label for="booking-company">Company</label>
-          <input type="text" id="booking-company" name="company" required placeholder="Company name">
-        </div>
-        <div class="field" style="flex-direction:row;gap:16px;">
-          <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-            <label for="booking-date">Preferred date</label>
-            <input type="date" id="booking-date" name="date" required>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-            <label for="booking-time">Preferred time</label>
-            <input type="time" id="booking-time" name="time" required>
-          </div>
-        </div>
-        <div class="field">
-          <label for="booking-notes">Anything we should know?</label>
-          <textarea id="booking-notes" name="notes" placeholder="Optional: timezone, alternate times, or context for the call."></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="align-self:flex-start;margin-top:6px;">Request this slot</button>
-        <p class="form-note">We read every request personally and confirm a time within a business day.</p>
-      </form>
-    </div>
-
-    <div id="booking-modal-success" style="display:none;text-align:center;padding:8px 0;">
-      <span class="eyebrow">Request sent</span>
-      <h3 style="margin-top:8px;margin-bottom:10px;">We'll be in touch.</h3>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-bottom:22px;">We've received your request and will confirm a slot by email within a business day.</p>
-      <button type="button" class="btn btn-outline" id="booking-modal-done">Close</button>
-    </div>
-  </div>
-</div>
 
 <script src="js/main.js"></script>
 </body>

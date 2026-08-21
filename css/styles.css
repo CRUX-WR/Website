@@ -681,56 +681,6 @@ section.ink{background:var(--void);color:#fff;}
 .contact-side .side-card a.email{color:var(--accent-glow);font-weight:600;}
 @media (max-width:900px){.contact-grid{grid-template-columns:1fr;}}
 
-/* ---------- booking modal ---------- */
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(10,12,17,0.55);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  z-index:200;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .2s ease;
-}
-.modal-overlay.open{opacity:1;pointer-events:auto;}
-.modal{
-  background:var(--canvas-deep);
-  border:1px solid var(--line);
-  border-radius:var(--radius-lg);
-  box-shadow:var(--shadow-lg);
-  max-width:460px;
-  width:100%;
-  padding:36px;
-  position:relative;
-  max-height:90vh;
-  overflow-y:auto;
-  transform:translateY(12px);
-  transition:transform .2s ease;
-}
-.modal-overlay.open .modal{transform:translateY(0);}
-.modal-close{
-  position:absolute;
-  top:18px;
-  right:18px;
-  width:32px;
-  height:32px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:transparent;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  font-size:18px;
-  line-height:1;
-  color:var(--ink-soft);
-}
-.modal-close:hover{border-color:var(--ink);color:var(--ink);}
-@media (max-width:480px){.modal{padding:28px 22px;}}
-
 /* ---------- footer ---------- */
 footer.site-footer{
   background:var(--void);
