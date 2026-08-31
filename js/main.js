@@ -420,11 +420,17 @@ document.addEventListener('DOMContentLoaded', function () {
     el.textContent = new Date().getFullYear();
   });
 
-  // Active nav link
-  var path = window.location.pathname.split('/').pop() || 'index.html';
+  // Active nav link. Normalizes both the current path and each link's href
+  // (stripping slashes and a trailing .html) so this matches whether pages
+  // are served as plain filenames (local server) or as Netlify's rewritten
+  // "pretty URLs" (e.g. about.html -> /about) on the live site.
+  function normalizePath(p) {
+    p = p.split('?')[0].split('#')[0].replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+    return p === '' ? 'index' : p;
+  }
+  var currentPath = normalizePath(window.location.pathname);
   document.querySelectorAll('.nav-links a[href]').forEach(function (a) {
-    var href = a.getAttribute('href');
-    if (href === path || (path === '' && href === 'index.html')) {
+    if (normalizePath(a.getAttribute('href')) === currentPath) {
       a.classList.add('active');
     }
   });
