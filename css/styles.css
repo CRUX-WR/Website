@@ -549,8 +549,10 @@ section.ink{background:var(--void);color:#fff;}
   color:var(--accent-line);
 }
 .process-visual{
+  position:relative;
+  overflow:hidden;
   width:100%;
-  height:130px;
+  height:150px;
   border-radius:var(--radius);
   background:radial-gradient(420px 200px at 20% 20%, rgba(91,139,240,0.16), transparent 60%), var(--canvas-deep);
   border:1px solid var(--accent-line);
@@ -558,8 +560,285 @@ section.ink{background:var(--void);color:#fff;}
   align-items:center;
   justify-content:center;
   margin-bottom:22px;
+  --pv-speed:1;
+  transition:border-color .25s ease;
 }
-.process-visual svg{width:56px;height:56px;color:var(--accent-glow);}
+.process-visual:hover{
+  --pv-speed:.55;
+  border-color:var(--accent-glow);
+}
+
+/* Diagnose — a conversion funnel where one stage falls short of its
+   expected size (dashed ghost vs. solid actual), inspected by a magnifying
+   glass with a few "leaked" users drifting off it. */
+.pv-diagnose{padding:20px 22px;}
+.pv-funnel{
+  position:relative;
+  width:100%;height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:12px;
+}
+.pv-frow{position:relative;height:14px;}
+.pv-fbar{
+  display:block;
+  height:100%;
+  width:var(--w);
+  border-radius:4px;
+  background:var(--accent-glow);
+  opacity:.4;
+}
+.pv-fbar-ghost{
+  position:absolute;
+  top:0;left:0;
+  height:100%;
+  width:var(--w);
+  border:1.5px dashed var(--ink-faint);
+  border-radius:4px;
+  opacity:.6;
+}
+.pv-fbar-bad{
+  position:absolute;
+  top:0;left:0;
+  opacity:1;
+  background:linear-gradient(90deg, #eab155, #f2a93f);
+  box-shadow:0 0 16px rgba(234,177,85,.5);
+}
+.pv-glass{
+  position:absolute;
+  top:50%;
+  left:calc(16% + 16px);
+  width:20px;height:20px;
+  color:#eab155;
+  filter:drop-shadow(0 0 6px rgba(234,177,85,.6));
+  animation:pv-glass-bob calc(2.6s * var(--pv-speed)) ease-in-out infinite;
+}
+@keyframes pv-glass-bob{
+  0%,100%{transform:translateY(-50%) rotate(-6deg);}
+  50%{transform:translateY(calc(-50% - 3px)) rotate(6deg);}
+}
+.pv-leak{
+  position:absolute;
+  top:100%;
+  left:calc(16% + 3px);
+  width:4px;height:4px;
+  border-radius:50%;
+  background:#eab155;
+  opacity:0;
+  animation:pv-leak-fall calc(2.2s * var(--pv-speed)) ease-in infinite;
+  animation-delay:calc(var(--dl) * .5s);
+}
+@keyframes pv-leak-fall{
+  0%{opacity:0;transform:translate(0,0);}
+  15%{opacity:.9;}
+  100%{opacity:0;transform:translate(7px,22px);}
+}
+
+/* Prescribe — a ranked scoreboard: badge #1 leads in a glowing accent
+   circle while a shimmer sweeps each bar in turn, like fixes being
+   actively re-scored. */
+.pv-prescribe{padding:20px 22px;}
+.pv-ranklist{
+  width:100%;height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.pv-rankrow{display:flex;align-items:center;gap:10px;}
+.pv-rankbadge{
+  flex:none;
+  width:20px;height:20px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--sans);
+  font-size:10px;
+  font-weight:800;
+  color:var(--ink-soft);
+  background:var(--canvas);
+  border:1px solid var(--line);
+  animation:pv-badge-cycle calc(3.6s * var(--pv-speed)) ease-in-out infinite;
+  animation-delay:calc(var(--d) * 1.2s * var(--pv-speed));
+}
+/* Same 3-slot rotation (0%/33.33%/66.67% of the cycle) drives the badge
+   glow, the bar brightness, and the shimmer sweep together, so whichever
+   row is "in the lead" is the one that's visibly lit and being swept. */
+@keyframes pv-badge-cycle{
+  0%,33.33%,100%{background:var(--canvas);border-color:var(--line);color:var(--ink-soft);box-shadow:none;}
+  8%,20%{background:linear-gradient(135deg, var(--accent-glow), var(--accent));border-color:transparent;color:#fff;box-shadow:0 0 12px rgba(91,139,240,.55);}
+}
+.pv-pill{
+  position:relative;
+  flex:1;
+  height:9px;
+  border-radius:999px;
+  background:var(--line);
+  overflow:hidden;
+}
+.pv-pill-fill{
+  position:absolute;
+  inset:0;
+  width:var(--w);
+  border-radius:999px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-glow));
+  opacity:.6;
+  animation:pv-fill-cycle calc(3.6s * var(--pv-speed)) ease-in-out infinite;
+  animation-delay:calc(var(--d) * 1.2s * var(--pv-speed));
+}
+@keyframes pv-fill-cycle{
+  0%,33.33%,100%{opacity:.6;}
+  8%,20%{opacity:1;}
+}
+.pv-pill::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  width:40%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  transform:translateX(-140%);
+  animation:pv-pill-shimmer calc(3.6s * var(--pv-speed)) ease-in-out infinite;
+  animation-delay:calc(var(--d) * 1.2s * var(--pv-speed));
+}
+@keyframes pv-pill-shimmer{
+  0%,33.33%,100%{transform:translateX(-140%);}
+  20%{transform:translateX(350%);}
+}
+
+/* Activate — a build pipeline whose progress fill and leading dot move at
+   a constant, linear pace, lighting each node the instant they reach it. */
+.pv-activate{padding:0 28px;}
+.pv-track{
+  position:relative;
+  width:100%;
+  height:3px;
+  background:var(--line);
+  border-radius:999px;
+}
+.pv-track-fill{
+  position:absolute;
+  inset:0;
+  width:0%;
+  border-radius:999px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-glow));
+  animation:pv-track-grow calc(4.8s * var(--pv-speed)) linear infinite;
+}
+@keyframes pv-track-grow{
+  0%{width:0%;}
+  75%,100%{width:100%;}
+}
+.pv-track-dot{
+  position:absolute;
+  top:50%;
+  left:0%;
+  width:10px;height:10px;
+  border-radius:50%;
+  background:var(--accent-glow);
+  box-shadow:0 0 12px rgba(91,139,240,.8);
+  transform:translate(-50%,-50%);
+  animation:pv-track-dot-move calc(4.8s * var(--pv-speed)) linear infinite;
+}
+@keyframes pv-track-dot-move{
+  0%{left:0%;}
+  75%,100%{left:100%;}
+}
+.pv-nodes{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:28px;
+  right:28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.pv-node{
+  width:14px;height:14px;
+  border-radius:50%;
+  background:var(--canvas-deep);
+  border:2px solid var(--accent-line);
+  animation:pv-node-light calc(4.8s * var(--pv-speed)) ease-in-out infinite;
+  animation-delay:calc(var(--d) * 1.2s * var(--pv-speed));
+}
+/* Nodes sit at 0%, 33.33%, 66.67%, 100% of the track (flex space-between),
+   and the linear fill/dot cross those exact points at 0%, 25%, 50%, 75% of
+   the cycle — matching each node's animation-delay 1:1, so a node only
+   lights up the moment the dot actually reaches it. */
+@keyframes pv-node-light{
+  0%,10%{background:var(--canvas-deep);border-color:var(--accent-line);box-shadow:none;transform:scale(1);}
+  14%{background:var(--accent-glow);border-color:var(--accent-glow);box-shadow:0 0 14px rgba(91,139,240,.75);transform:scale(1.25);}
+  22%,100%{background:var(--accent);border-color:var(--accent-glow);box-shadow:0 0 8px rgba(91,139,240,.4);transform:scale(1);}
+}
+
+/* Measure — a trend line that draws itself while a glowing dot travels
+   its length. */
+.pv-measure{padding:0;}
+.pv-measure-inner{position:absolute;inset:16px;}
+.pv-chart{width:100%;height:100%;display:block;}
+.pv-line{
+  fill:none;
+  stroke:var(--accent-glow);
+  stroke-width:2.4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:100;
+  animation:pv-line-draw calc(4.2s * var(--pv-speed)) linear infinite;
+}
+/* Keyframe stops below are placed at the cumulative arc-length fraction of
+   each vertex along the path (10,72)-(46,58)-(82,64)-(118,38)-(154,44)-
+   (200,16), scaled into the 0-70% draw window, so stroke-dashoffset (via
+   pathLength=100) and .pv-dot's position advance at the exact same rate
+   and never drift apart. */
+@keyframes pv-line-draw{
+  0%{stroke-dashoffset:100;}
+  12.883%{stroke-dashoffset:81.596;}
+  25.054%{stroke-dashoffset:64.208;}
+  39.868%{stroke-dashoffset:43.046;}
+  52.044%{stroke-dashoffset:25.651;}
+  70%,100%{stroke-dashoffset:0;}
+}
+.pv-dot{
+  position:absolute;
+  width:9px;height:9px;
+  border-radius:50%;
+  background:var(--accent-glow);
+  box-shadow:0 0 12px rgba(91,139,240,.8);
+  transform:translate(-50%,-50%);
+  animation:pv-dot-move calc(4.2s * var(--pv-speed)) linear infinite;
+}
+@keyframes pv-dot-move{
+  0%{left:4.76%;top:80%;}
+  12.883%{left:21.9%;top:64.44%;}
+  25.054%{left:39.05%;top:71.11%;}
+  39.868%{left:56.19%;top:42.22%;}
+  52.044%{left:73.33%;top:48.89%;}
+  70%,100%{left:95.24%;top:17.78%;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .pv-glass,
+  .pv-leak,
+  .pv-rankbadge,
+  .pv-pill-fill,
+  .pv-pill::after,
+  .pv-track-fill,
+  .pv-track-dot,
+  .pv-node,
+  .pv-line,
+  .pv-dot{animation:none;}
+  .pv-glass{transform:translateY(-50%);}
+  .pv-leak{display:none;}
+  .pv-pill::after{opacity:0;}
+  .pv-pill-fill{opacity:.6;}
+  .pv-rankrow:first-child .pv-rankbadge{color:#fff;background:linear-gradient(135deg, var(--accent-glow), var(--accent));border-color:transparent;box-shadow:0 0 12px rgba(91,139,240,.55);}
+  .pv-rankrow:first-child .pv-pill-fill{opacity:1;}
+  .pv-track-fill{width:100%;}
+  .pv-track-dot{left:100%;}
+  .pv-node{background:var(--accent);border-color:var(--accent-glow);box-shadow:0 0 8px rgba(91,139,240,.4);}
+  .pv-line{stroke-dashoffset:0;}
+  .pv-dot{left:95.24%;top:17.78%;}
+}
 .process-row h3{font-size:23px;margin-bottom:10px;}
 .process-row .role-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
 .role-tag{
@@ -572,6 +851,117 @@ section.ink{background:var(--void);color:#fff;}
 }
 .process-row p.body{font-size:15px;color:var(--ink-soft);max-width:640px;}
 @media (max-width:640px){.process-row{grid-template-columns:1fr;gap:8px;}}
+
+/* ---------- tool stack ---------- */
+.tool-stack-section{
+  position:relative;
+  background:radial-gradient(680px 340px at 12% 0%, rgba(91,139,240,0.07), transparent 65%);
+}
+
+.tool-marquee{
+  position:relative;
+  overflow:hidden;
+  margin:0 0 52px;
+  padding:20px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  -webkit-mask-image:linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image:linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.tool-marquee-track{
+  display:flex;
+  align-items:center;
+  gap:48px;
+  width:max-content;
+  animation:tool-marquee 34s linear infinite;
+}
+.tool-marquee:hover .tool-marquee-track{animation-play-state:paused;}
+.tool-marquee-item{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex:none;
+  opacity:.5;
+  filter:grayscale(1);
+  transition:opacity .25s ease, filter .25s ease, transform .25s ease;
+}
+.tool-marquee-item svg{height:20px;width:20px;flex:none;}
+.tool-marquee-item span{font-size:13px;font-weight:600;color:var(--ink-soft);white-space:nowrap;}
+.tool-marquee-item:hover{opacity:1;filter:grayscale(0);transform:translateY(-2px);}
+.tool-marquee-item:hover span{color:var(--ink);}
+@keyframes tool-marquee{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+@media (prefers-reduced-motion: reduce){
+  .tool-marquee-track{animation:none;flex-wrap:wrap;width:auto;gap:24px 36px;}
+  .tool-marquee{overflow:visible;-webkit-mask-image:none;mask-image:none;}
+}
+
+.tool-phase-grid{display:flex;flex-direction:column;gap:40px;position:relative;z-index:1;}
+.tool-phase-label{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:12.5px;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent-glow);
+  margin-bottom:18px;
+}
+.tool-phase-label::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:var(--line);
+}
+.tool-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.tool-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+  background:var(--canvas-deep);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px 20px;
+  overflow:hidden;
+  will-change:transform;
+  transition:transform .25s cubic-bezier(.16,.84,.44,1), border-color .25s ease, box-shadow .25s ease;
+}
+.tool-card::before{
+  content:"";
+  position:absolute;
+  top:-50%;right:-40%;
+  width:150px;height:150px;
+  border-radius:50%;
+  background:radial-gradient(circle, var(--tool-glow-strong), transparent 70%);
+  opacity:0;
+  transition:opacity .35s ease;
+  pointer-events:none;
+}
+.tool-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--tool-color);
+  box-shadow:0 18px 36px -14px var(--tool-glow-strong);
+}
+.tool-card:hover::before{opacity:1;}
+.tool-icon{
+  position:relative;
+  z-index:1;
+  flex:none;
+  width:44px;height:44px;
+  border-radius:12px;
+  background:var(--tool-glow);
+  display:flex;align-items:center;justify-content:center;
+}
+.tool-icon svg{width:22px;height:22px;}
+.tool-card h5{position:relative;z-index:1;font-size:14.5px;color:var(--ink);}
+.tool-card p{position:relative;z-index:1;font-size:12.5px;color:var(--ink-soft);}
+@media (max-width:900px){.tool-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.tool-grid{grid-template-columns:1fr;}}
 
 /* ---------- track split ---------- */
 .split-note{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
